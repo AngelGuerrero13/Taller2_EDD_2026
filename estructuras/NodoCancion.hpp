@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include "Cancion.hpp"
+#include "../clases/Cancion.hpp"
 
 using namespace std;
 

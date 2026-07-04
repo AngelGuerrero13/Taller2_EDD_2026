@@ -4,8 +4,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "NodoCancion.hpp"
-#include "ListaCancion.hpp"
+#include "../estructuras/NodoCancion.hpp"
+#include "../estructuras/ListaCancion.hpp"
 
 
 using namespace std;

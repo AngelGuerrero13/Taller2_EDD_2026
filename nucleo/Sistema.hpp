@@ -1,5 +1,5 @@
 #pragma once
-#include "Cancion.hpp"
+#include "../clases/Cancion.hpp"
 #include "Reproductor.hpp"
 
 class Sistema{

@@ -1,4 +1,4 @@
-#include "../nucleo/Sistema.hpp"
+#include "nucleo/Sistema.hpp"
 
 using namespace std;
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "nodoCancion.hpp"
+#include "NodoCancion.hpp"
 
 class ListaCancion{
     private:

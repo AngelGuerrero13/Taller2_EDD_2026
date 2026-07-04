@@ -1,4 +1,4 @@
-#include "nodoCancion.hpp"
+#include "NodoCancion.hpp"
 
 NodoCancion::NodoCancion(Cancion* cancion){
     this->cancion = cancion;

@@ -45,6 +45,7 @@ class Reproductor{
         void ListaReproduccion();
         void listadoCanciones();
         void menuBusqueda();
+        void menuRanking();
 
         //Metodos auxiliares
         void mezclarLista();
@@ -58,6 +59,7 @@ class Reproductor{
         void cargarEstado();
         void inicializar();
         void reproducirDesdeBusqueda(Cancion* cancion);
+        void mostrarTop10Canciones();
         
         //Destructor
         ~Reproductor();

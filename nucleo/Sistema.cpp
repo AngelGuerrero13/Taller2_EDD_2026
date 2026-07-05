@@ -22,11 +22,14 @@ void Sistema::menu(){
         cout<<"R - Repeticion (Desactivado/Repetir una/Repetir todas)"<<endl;
         cout<<"A - Ver lista de reproduccion actual"<<endl;
         cout<<"L - Listado de canciones"<<endl;
+        cout<<"F - Buscar canciones"<<endl;
+        cout<<"T - Ver Ranking TOP 10"<<endl;
         cout<<"X - Salir"<<endl;
         cout<<"Ingrese Opcion:"<<endl;
 
         cin>>opcion;
         opcion = toupper(opcion);
+        cin.ignore(1000, '\n');
         cout<<"--------------------------------------------------------"<<endl;
 
         switch(opcion){
@@ -62,6 +65,16 @@ void Sistema::menu(){
             }
             case 'L':{
                 reproductor.listadoCanciones();
+                cout<<"--------------------------------------------------------"<<endl;
+                break;
+            }
+            case 'F':{
+                reproductor.menuBusqueda();
+                cout<<"--------------------------------------------------------"<<endl;
+                break;
+            }
+            case 'T':{
+                reproductor.menuRanking();
                 cout<<"--------------------------------------------------------"<<endl;
                 break;
             }

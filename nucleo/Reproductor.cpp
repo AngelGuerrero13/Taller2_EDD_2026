@@ -923,3 +923,154 @@ void Reproductor::menuBusqueda(){
         delete resultados;
     }
 }
+
+void Reproductor::mostrarTop10Canciones(){
+
+    if (this->canciones.getCabeza() == nullptr) {
+        cout << "No hay canciones registradas en el sistema.\n";
+        return;
+    }
+
+    //Creamos el Heap con la capacidad total de canciones
+    MaxHeap heap(this->canciones.getTotal());
+
+    //Insertamos todas las canciones.
+    NodoCancion* aux = this->canciones.getCabeza();
+    while (aux != nullptr) {
+        heap.insertar(aux->getCancion());
+        aux = aux->getSiguiente();
+    }
+
+    //Extraemos las 10 mejores y las guardamos en una lista temporal
+    ListaCancion top10;
+    int contador = 1;
+    
+    cout << "========================================================"<<endl;
+    cout << "           TOP 10 CANCIONES MAS REPRODUCIDAS            "<<endl;
+    cout << "========================================================"<<endl;
+
+    while (!heap.estaVacio() && contador <= 10) {
+
+        Cancion* mejorCancion = heap.extraerMaximo();
+        
+        //Solo mostramos canciones que hayan sido escuchadas al menos 1 vez
+        if (mejorCancion->getReproducciones() == 0){
+            break; 
+        }
+
+        top10.insertarFinal(mejorCancion);
+
+        cout << contador << ". " << mejorCancion->getNombreCancion() 
+             << " - " << mejorCancion->getArtista() 
+             << " (" << mejorCancion->getReproducciones() << " reproducciones)"<<endl;
+
+        contador++;
+    }
+
+    if (top10.getTotal() == 0) {
+        cout << "Aun no has escuchado ninguna cancion."<<endl;
+        cout << "Presione ENTER para continuar...";
+        cin.get();
+        return;
+    }
+
+    //Submenú de interacción
+    bool enMenu = true;
+
+    while (enMenu) {
+
+        cout << "Opciones:"<<endl;
+        cout << "R<num> - Reproducir cancion del ranking"<<endl;
+        cout << "A<num> - Agregar cancion del ranking a la cola"<<endl;
+        cout << "V      - Volver"<<endl;
+        cout << "Ingrese Opcion: "<<endl;
+        
+        string opcion;
+        getline(cin, opcion);
+
+        if (opcion.empty()){
+            continue;
+        }
+
+        char letra = toupper(opcion[0]);
+
+        if (letra == 'V') {
+
+            enMenu = false;
+
+        } else if (letra == 'R' && opcion.length() > 1) {
+
+            int pos = stoi(opcion.substr(1));
+            NodoCancion* nodo = top10.seleccionarNodo(pos);
+
+            if (nodo != nullptr) {
+
+                reproducirDesdeBusqueda(nodo->getCancion());
+                cout << "Reproduciendo ahora..."<<endl;
+                enMenu = false; //Salimos para que el reproductor actualice la pantalla
+
+            } else {
+
+                cout << "Error: Posicion no valida."<<endl;
+            }
+
+        } else if (letra == 'A' && opcion.length() > 1) {
+
+            int pos = stoi(opcion.substr(1));
+            NodoCancion* nodo = top10.seleccionarNodo(pos);
+
+            if (nodo != nullptr) {
+
+                this->listaReproduccion.insertarFinal(nodo->getCancion());
+                guardarEstado();
+                cout << "Cancion agregada a la lista actual."<<endl;
+
+            } else {
+
+                cout << "Error: Posicion no valida."<<endl;
+            }
+        }
+    }
+}
+
+
+
+void Reproductor::menuRanking(){
+
+    bool ejecutandoRanking = true;
+
+    while (ejecutandoRanking) {
+        
+        cout << "========================================================"<<endl;
+        cout << "                    RANKING TOP 10                      "<<endl;
+        cout << "========================================================"<<endl;
+        cout << "C - Ver Top 10 Canciones"<<endl;
+        cout << "A - Ver Top 10 Artistas"<<endl;
+        cout << "V - Volver al menu principal"<<endl;
+        cout << "Ingrese Opcion: ";
+
+        string opcion;
+        getline(cin, opcion);
+
+        if (opcion.empty()){
+            continue;
+        }
+
+        char letra = toupper(opcion[0]);
+
+        if (letra == 'V') {
+
+            ejecutandoRanking = false;
+
+        } else if (letra == 'C') {
+
+            mostrarTop10Canciones();
+
+        } else if (letra == 'A') {
+
+            // Mostrar top 10 artistas
+
+        }
+    }
+    cout<<"--------------------------------------------------------"<<endl;
+}

@@ -3,7 +3,7 @@ setlocal
 
 echo Abriendo mp3...
 
-g++ main.cpp nucleo\Sistema.cpp nucleo\Reproductor.cpp clases\Cancion.cpp estructuras\ListaCancion.cpp estructuras\NodoCancion.cpp estructuras\NodoTrie.cpp estructuras\ArbolTrie.cpp -o main.exe
+g++ main.cpp nucleo\Sistema.cpp nucleo\Reproductor.cpp clases\Cancion.cpp estructuras\ListaCancion.cpp estructuras\NodoCancion.cpp estructuras\NodoTrie.cpp estructuras\ArbolTrie.cpp estructuras\MaxHeap.cpp -o main.exe
 
 if %errorlevel% neq 0 (
     echo.

@@ -826,3 +826,100 @@ Reproductor::~Reproductor(){
     this->listaReproduccion.vaciarLista();
     this->canciones.vaciarLista();
 }
+
+void Reproductor::menuBusqueda(){
+
+    string textoBusqueda;
+    bool ejecutandoBusqueda = true;
+
+    while (ejecutandoBusqueda) {
+
+        cout << "========================================================"<<endl;
+        cout << "                 BUSQUEDA DE CANCIONES                  "<<endl;
+        cout << "========================================================"<<endl;
+        cout << "Buscar canciones que contengan (ENTER para salir): ";
+        
+        getline(cin, textoBusqueda);
+
+        if (textoBusqueda.empty()) {
+            return; 
+        }
+
+        ListaCancion* resultados = this->buscadorTrie->buscarSubCadena(textoBusqueda);
+
+        if (resultados->getCabeza() == nullptr) {
+
+            cout << "No se encontraron canciones que coincidan con " << textoBusqueda << "."<<endl;
+            cout << "Presione ENTER para continuar...";
+            cin.get();
+            delete resultados;
+            continue;
+        }
+
+        cout << "Canciones que contienen " << textoBusqueda << ":"<<endl;
+        resultados->verLista();
+
+        cout << "Opciones:"<<endl;
+        cout << "R<num> - Reproducir cancion seleccionada"<<endl;
+        cout << "A<num> - Agregar cancion seleccionada al final de la cola"<<endl;
+        cout << "F      - Repetir busqueda con un texto diferente"<<endl;
+        cout << "V      - Volver al menu principal"<<endl;
+        cout << "Ingrese Opcion: "<<endl;
+        
+        string opcion;
+        getline(cin, opcion);
+
+        if (opcion.empty()) {
+            delete resultados;
+            continue;
+        }
+
+        char letra = toupper(opcion[0]);
+
+        if (letra == 'V') {
+
+            ejecutandoBusqueda = false;
+
+        } else if (letra == 'F') {
+
+            delete resultados;
+
+            continue;
+
+        } else if (letra == 'R' && opcion.length() > 1) {
+
+            int pos = stoi(opcion.substr(1));
+            NodoCancion* nodo = resultados->seleccionarNodo(pos);
+
+            if (nodo != nullptr) {
+
+                reproducirDesdeBusqueda(nodo->getCancion());
+
+            } else {
+
+                cout << "Error: Posicion no valida."<<endl;
+                cin.get();
+
+            }
+
+        } else if (letra == 'A' && opcion.length() > 1) {
+
+            int pos = stoi(opcion.substr(1));
+            NodoCancion* nodo = resultados->seleccionarNodo(pos);
+
+            if (nodo != nullptr) {
+
+                this->listaReproduccion.insertarFinal(nodo->getCancion());
+                guardarEstado();
+                cout << "Cancion agregada a la lista actual."<<endl;
+                cin.get();
+                
+            } else {
+
+                cout << "Error: Posicion no valida."<<endl;
+                cin.get();
+            }
+        }
+        delete resultados;
+    }
+}

@@ -14,8 +14,7 @@ El script compila todos los archivos fuente y ejecuta el programa automáticamen
 
  ## Archivos necesarios:
 Antes de ejecutar asegúrate de tener en la carpeta nucleo:
-music_source.txt — listado de canciones con el siguiente formato:
-id,nombre,artista,album,año,duracion_segundos,ruta_archivo
+music_source.txt — listado de canciones
 
  ## Funcionalidades del programa:
 | Tecla |                                 Acción                                |
@@ -29,24 +28,6 @@ id,nombre,artista,album,año,duracion_segundos,ruta_archivo
 | `L` | Ver catálogo completo                                                   |
 | `X` | Guardar estado y salir del programa                                     |
 
- ## La estructura del proyecto:
-
-Taller2_EDD_2026/
-├── clases/
-│   └── Cancion.hpp / Cancion.cpp
-├── estructuras/
-│   ├── ArbolTrie.hpp / ArbolTrie.cpp
-│   ├── ListaCancion.hpp / ListaCancion.cpp
-│   ├── MaxHeap.hpp / MaxHeap.cpp
-│   ├── NodoCancion.hpp / NodoCancion.cpp
-│   └── NodoTrie.hpp / NodoTrie.cpp
-├── nucleo/
-│   ├── music_source.txt
-│   ├── Reproductor.hpp / Reproductor.cpp
-│   └── Sistema.hpp / Sistema.cpp
-├── main.cpp
-├── compilar.bat
-└── README.md
 
  ## Para este proyecto se utilizo:
 

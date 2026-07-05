@@ -79,7 +79,6 @@ void Sistema::menu(){
                 break;
             }
             case 'X':{
-                reproductor.~Reproductor();
                 cout<<"Programa finalizado..."<<endl;
                 cout<<"--------------------------------------------------------"<<endl;
                 break;

@@ -690,6 +690,30 @@ void Reproductor::cargarEstado(){
     ifstream archivo("status.cfg");
 
     if(!archivo.is_open()){
+        cout<<"status.cfg no encontrado. Generando archivo de estado inicial"<<endl;
+
+        this->modoAleatorio = false;
+        this->repeticion = 0;
+        this->reproduciendo = false;
+        this->cancionReproduciendo = nullptr;
+
+        this->listaReproduccion.vaciarLista();
+
+        NodoCancion* aux = this->canciones.getCabeza();
+
+        while(aux != nullptr){
+
+            this->listaReproduccion.insertarFinal(aux->getCancion());
+            aux = aux->getSiguiente();
+
+        }
+
+        if(this->listaReproduccion.getCabeza() != nullptr){
+            this->cancionReproduciendo = this->listaReproduccion.getCabeza();
+        }
+
+        this->guardarEstado();
+
         return;
     }
 
@@ -759,7 +783,7 @@ void Reproductor::inicializar() {
     ifstream source("music_source.txt");
 
     if (!source.is_open()) {
-        cout << "Error Crítico: music_source.txt no encontrado. No se puede iniciar." << endl;
+        cout << "Error Critico: music_source.txt no encontrado. Creando archivo." << endl;
         return; 
     }
     source.close();
@@ -769,6 +793,22 @@ void Reproductor::inicializar() {
 
     //Cargar estado previo
     this->cargarEstado();
+
+    //inicializar playlist
+    if(this->listaReproduccion.getCabeza() == nullptr){
+
+        NodoCancion* aux = this->canciones.getCabeza();
+
+        while(aux != nullptr){
+
+            this->listaReproduccion.insertarFinal(aux->getCancion());
+            aux = aux->getSiguiente();
+        }
+
+        if(this->cancionReproduciendo == nullptr && this->listaReproduccion.getCabeza() != nullptr){
+            this->cancionReproduciendo = this->listaReproduccion.getCabeza();
+        }
+    }
 }
 
 void Reproductor::guardar(){

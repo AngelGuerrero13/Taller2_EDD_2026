@@ -44,7 +44,7 @@ NodoAVL* ArbolAVL::rotacionDerecha(NodoAVL* der){
     NodoAVL* temp = x->getDerecho();
 
     x->setDerecho(der);
-    der->setDerecho(temp);
+    der->setIzquierdo(temp);
 
     der->setAltura(max(altura(der->getIzquierdo()), altura(der->getDerecho()))+1);
     x->setAltura(max(altura(x->getIzquierdo()), altura(x->getDerecho()))+1);
@@ -100,7 +100,6 @@ NodoAVL* ArbolAVL::insertar(NodoAVL* nodo, Cancion* cancion){
 
     nodo-> setAltura(1 + max(altura(nodo->getIzquierdo()), altura(nodo->getDerecho())));
 
-    nodo->setAltura(1 + max(altura(nodo->getIzquierdo()), altura(nodo->getDerecho())));
 
     int balance = obtenerBalance(nodo);
 

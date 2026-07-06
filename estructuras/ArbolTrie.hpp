@@ -1,3 +1,4 @@
+#pragma once
 #include "NodoTrie.hpp"
 using namespace std;
 

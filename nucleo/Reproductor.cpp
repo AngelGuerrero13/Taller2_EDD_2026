@@ -6,6 +6,7 @@ Reproductor::Reproductor(){
     this->cancionReproduciendo = nullptr;
     this->modoAleatorio = false;
     this->repeticion = 1;
+    this->buscadorTrie = new ArbolTrie();
 }
 
 //Getters
@@ -71,6 +72,7 @@ void Reproductor::leerArchivoCancion(string archivoCancion){
         Cancion* cancion = new Cancion(idInterno,nombreCancion,nombreArtista,nombreAlbum,anioCancion,duracionSegundos,ubicacionArchivo,reproducciones);
 
         this->canciones.insertarFinal(cancion);
+        this->buscadorTrie->registrarCancion(cancion);
 
     }
     archivo.close();
@@ -596,6 +598,7 @@ void Reproductor::agregarCancionRegistro(){
     Cancion* cancionNueva = new Cancion(idInterno,nombreCancion,nombreArtista,nombreAlbum,anio,duracionSegundos,ubicacion,0);
     //La agregamos al final de la lista de canciones para no leer nuevamente todo el archivo
     this->canciones.insertarFinal(cancionNueva);
+    this->buscadorTrie->registrarCancion(cancionNueva);
 
     //Abrimos el archivo en modo sobreescritura
     ofstream archivo("music_source.txt",ios::app);
@@ -638,7 +641,7 @@ void Reproductor::eliminarCancion(int posicion){
         while(aux != nullptr){
             Cancion* cancion = aux->getCancion();
 
-            archivo<<cancion->getId()<<","<<cancion->getNombreCancion()<<","<<cancion->getArtista()<<","<<cancion->getAlbum()<<","<<cancion->getAnio()<<","<<cancion->getDuracion()<<","<<cancion->getUbicacion()<<endl;
+            archivo<<cancion->getId()<<","<<cancion->getNombreCancion()<<","<<cancion->getArtista()<<","<<cancion->getAlbum()<<","<<cancion->getAnio()<<","<<cancion->getDuracion()<<","<<cancion->getUbicacion()<< "," << cancion->getReproducciones() <<endl;
             
             aux = aux->getSiguiente();
         }
@@ -864,6 +867,8 @@ Reproductor::~Reproductor(){
     guardar();
     //Eliminamos las listas para liberar memoria
     this->listaReproduccion.vaciarLista();
+    this->canciones.vaciarLista();
+    delete this->buscadorTrie;
     this->canciones.vaciarLista();
 }
 

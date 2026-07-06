@@ -1,3 +1,4 @@
+#pragma once
 #include "../clases/Cancion.hpp"
 #include <string>
 

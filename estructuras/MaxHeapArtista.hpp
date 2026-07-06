@@ -1,6 +1,6 @@
 #pragma once
 #include "../clases/Artista.hpp"
-#include "../estructuras/MaxHeapArtista.hpp"
+
 
 using namespace std;
 

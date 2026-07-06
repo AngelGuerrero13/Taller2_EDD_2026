@@ -39,7 +39,8 @@ void MaxHeapArtista::insertar(Artista *artista){
     }
 
     arreglo[tamanoActual] = artista;
-    flotar(tamanoActual);
+    tamanoActual++;
+    flotar(tamanoActual-1);
 }
 
 void MaxHeapArtista::intercambiar(int i, int j){
@@ -92,7 +93,7 @@ void MaxHeapArtista::hundir(int i){
 }
 
 bool MaxHeapArtista::estaVacio(){
-    if(this->tamanoActual = 0){
+    if(this->tamanoActual == 0){
         return true;
     }
     return false;

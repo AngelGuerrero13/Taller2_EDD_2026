@@ -1089,6 +1089,11 @@ void Reproductor::mostrarTop10Artistas(){
         Cancion* c = aux->getCancion();
         string nombreArtista = c->getArtista();
 
+        if(nombreArtista.empty()){
+            aux = aux->getSiguiente();
+            continue;
+        }
+
         Artista* temp = listaArtistas;
         Artista* encontrado = nullptr;
 
@@ -1120,21 +1125,23 @@ void Reproductor::mostrarTop10Artistas(){
         iterador = iterador->getSiguiente();
     }
 
+     bool encontradoAlguno = false;
      cout << "=== TOP 10 ARTISTA === " << endl;
 
-     for (int i = 1; i < 10 && !heap.estaVacio(); i++){
+     for (int i = 1; i <= 10 && !heap.estaVacio(); i++){
         
         Artista* topArtista = heap.extraerMaximo();
         cout << i << ". " << topArtista->getNombre() << " (" << topArtista->getReproduccionesTotales() << " reproducciones)" << endl;
+        encontradoAlguno = true;
+    }
 
-     }
-
+     if(!encontradoAlguno){cout << "No hay datos para mostrar" << endl; }
      while (listaArtistas != nullptr){
         
         Artista* siguiente = listaArtistas->getSiguiente();
         delete listaArtistas;
         listaArtistas = siguiente;
-     }
+    }
 }
 
 void Reproductor::menuRanking(){

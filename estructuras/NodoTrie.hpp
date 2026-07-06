@@ -1,3 +1,4 @@
+#pragma once
 #include "ListaCancion.hpp"
 
 class NodoTrie{

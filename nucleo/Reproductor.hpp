@@ -4,6 +4,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "../clases/Artista.hpp"
+#include "../estructuras/MaxHeapArtista.hpp"
 #include "../estructuras/NodoCancion.hpp"
 #include "../estructuras/ListaCancion.hpp"
 #include "../estructuras/ArbolTrie.hpp"
@@ -60,6 +62,7 @@ class Reproductor{
         void inicializar();
         void reproducirDesdeBusqueda(Cancion* cancion);
         void mostrarTop10Canciones();
+        void mostrarTop10Artistas();
         
         //Destructor
         ~Reproductor();

@@ -1073,7 +1073,64 @@ void Reproductor::mostrarTop10Canciones(){
     }
 }
 
+void Reproductor::mostrarTop10Artistas(){
 
+    Artista* listaArtistas = nullptr;
+
+    NodoCancion* aux = this->canciones.getCabeza();
+    
+    while (aux != nullptr){
+    
+        Cancion* c = aux->getCancion();
+        string nombreArtista = c->getArtista();
+
+        Artista* temp = listaArtistas;
+        Artista* encontrado = nullptr;
+
+        while(temp != nullptr){
+
+            if(temp->getNombre() == nombreArtista){
+                encontrado = temp;
+                break;
+            }
+            temp = temp->getSiguiente();
+        }
+
+        if(encontrado == nullptr){
+
+            encontrado = new Artista(nombreArtista);
+            encontrado->setSiguiente(listaArtistas);
+            listaArtistas = encontrado;
+        }
+
+        encontrado->agregarCancion(c);
+        aux = aux->getSiguiente();
+    }
+
+    MaxHeapArtista heap(100);
+    Artista* iterador = listaArtistas;
+
+    while (iterador != nullptr){
+        heap.insertar(iterador);
+        iterador = iterador->getSiguiente();
+    }
+
+     cout << "=== TOP 10 ARTISTA === " << endl;
+
+     for (int i = 1; i < 10 && !heap.estaVacio(); i++){
+        
+        Artista* topArtista = heap.extraerMaximo();
+        cout << i << ". " << topArtista->getNombre() << " (" << topArtista->getReproduccionesTotales() << " reproducciones)" << endl;
+
+     }
+
+     while (listaArtistas != nullptr){
+        
+        Artista* siguiente = listaArtistas->getSiguiente();
+        delete listaArtistas;
+        listaArtistas = siguiente;
+     }
+}
 
 void Reproductor::menuRanking(){
 
@@ -1108,7 +1165,7 @@ void Reproductor::menuRanking(){
 
         } else if (letra == 'A') {
 
-            // Mostrar top 10 artistas
+            mostrarTop10Artistas();
 
         }
     }
